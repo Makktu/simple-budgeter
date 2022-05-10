@@ -5,6 +5,12 @@ const confirmBtn = document.querySelector("#btn-confirm");
 
 const expensesList = document.querySelector("#expenses-list");
 
+const totalExpensesDisplay = document.querySelector("#total-expenses");
+
+const alertControl = document.createElement("ion-alert");
+
+let totalExpensesNumber = 0;
+
 const clearFields = function () {
     reasonInput.value = "";
     amountInput.value = "";
@@ -18,8 +24,14 @@ confirmBtn.addEventListener("click", () => {
         newItem.textContent += enteredReason + ": £" + enteredAmount;
         expensesList.appendChild(newItem);
         clearFields();
+        totalExpensesNumber += +enteredAmount;
+        totalExpensesDisplay.textContent = `£${totalExpensesNumber}`;
     } else {
-        console.log("enter a value");
+        alertControl.message = "Enter a valid reason and amount";
+        alertControl.header = "Invalid Input";
+        alertControl.buttons = ["OK"];
+        document.body.appendChild(alertControl);
+        alertControl.present();
     }
 });
 
